@@ -33,7 +33,7 @@ export type AgentApprovalStatus =
   | AgentApprovalRejected;
 
 /**
- * Request agent creation approval via the Ampersend dashboard.
+ * Request agent creation approval via the ampersend dashboard.
  * Returns an approval token and URL for the user to visit.
  */
 export async function requestAgentApproval(

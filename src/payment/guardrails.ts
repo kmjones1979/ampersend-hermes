@@ -17,7 +17,7 @@ export interface PaymentRequest {
 /**
  * Client-side pre-flight check. Throws SpendLimitViolationError
  * with a machine-readable code if any constraint fails.
- * The Ampersend API enforces these again server-side.
+ * The ampersend API enforces these again server-side.
  */
 export function validatePayment(
   request: PaymentRequest,

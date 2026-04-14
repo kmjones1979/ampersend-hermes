@@ -43,7 +43,7 @@ export function getApprovalClient(): ApprovalClient {
 }
 
 /**
- * Creates an AmpersendTreasurer that consults the Ampersend API before
+ * Creates an AmpersendTreasurer that consults the ampersend API before
  * making payments. This is the primary integration point for x402 payments.
  */
 export function createTreasurer(

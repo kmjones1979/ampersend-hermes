@@ -37,7 +37,7 @@ export function buildHermesMcpServerEntry(proxyPort?: number): HermesMcpEntry {
 }
 
 /**
- * Stdio entry: runs the Ampersend MCP proxy via npx with session key credentials in env.
+ * Stdio entry: runs the ampersend MCP proxy via npx with session key credentials in env.
  * The proxy handles SIWE auth and x402 payments internally.
  */
 export function buildHermesStdioMcpEntry(): Record<string, unknown> {
@@ -125,10 +125,10 @@ async function patchJson(
 }
 
 /**
- * Merge Ampersend MCP into Hermes config. Prefers `~/.hermes/config.yaml`;
+ * Merge ampersend MCP into Hermes config. Prefers `~/.hermes/config.yaml`;
  * falls back to `config.json` if only that exists.
  *
- * **Default (`transport: 'stdio'`)** runs the Ampersend MCP proxy via
+ * **Default (`transport: 'stdio'`)** runs the ampersend MCP proxy via
  * `npx` with agent credentials in `env` — the proxy handles SIWE auth
  * and x402 payments automatically.
  *

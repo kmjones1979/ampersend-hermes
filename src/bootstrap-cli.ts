@@ -11,7 +11,7 @@ function usage(): never {
 Usage: ampersend-hermes-bootstrap [start|finish] [options]
 
 Commands:
-  start     Generate an agent key and request approval via the Ampersend dashboard
+  start     Generate an agent key and request approval via the ampersend dashboard
   finish    Poll for approval, activate config, and write .env
 
 Options (start):
@@ -35,7 +35,7 @@ Options (finish):
 
 Recommended flow:
   pnpm bootstrap start --name my-hermes-agent
-  # Approve in Ampersend dashboard
+  # Approve in ampersend dashboard
   pnpm bootstrap finish
 `);
   process.exit(0);

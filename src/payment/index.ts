@@ -41,7 +41,7 @@ export interface PaymentAuthorizationResult {
 }
 
 /**
- * Authorize a payment through the Ampersend API.
+ * Authorize a payment through the ampersend API.
  * Returns authorization status and remaining spend limits.
  */
 export async function authorizePayment(
@@ -83,7 +83,7 @@ export type PaymentEventType =
   | { type: "error"; reason: string };
 
 /**
- * Report a payment lifecycle event to the Ampersend API for tracking.
+ * Report a payment lifecycle event to the ampersend API for tracking.
  */
 export async function reportPaymentEvent(
   eventId: string,

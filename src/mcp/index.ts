@@ -6,7 +6,7 @@ export interface McpProxyEntry {
 }
 
 /**
- * Build a minimal MCP proxy entry pointing at a running Ampersend proxy server.
+ * Build a minimal MCP proxy entry pointing at a running ampersend proxy server.
  */
 export function buildMcpEntry(proxyPort?: number): McpProxyEntry {
   const port = proxyPort ?? config.ampersendMcpProxyPort;

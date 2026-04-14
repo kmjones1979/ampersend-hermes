@@ -1,6 +1,6 @@
 # @ampersend/hermes
 
-Integration package that wires [Ampersend](https://ampersend.ai) x402 payment capabilities into [Hermes Agent](https://github.com/anthropics/hermes) across three planes: MCP-based payment proxy, agent identity management via the Ampersend dashboard, and client-side spend limit guardrails.
+Integration package that wires [ampersend](https://ampersend.ai) x402 payment capabilities into [Hermes Agent](https://github.com/anthropics/hermes) across three planes: MCP-based payment proxy, agent identity management via the ampersend dashboard, and client-side spend limit guardrails.
 
 This package is a thin, typed layer over the [`@ampersend_ai/ampersend-sdk`](https://github.com/edgeandnode/ampersend-sdk). It provides opinionated defaults for Hermes workflows — automatic agent setup via the approval flow, Hermes config patching for MCP payment proxying, and pre-flight spend validation — while staying composable enough to use in any agent framework.
 
@@ -12,7 +12,7 @@ This package is a thin, typed layer over the [`@ampersend_ai/ampersend-sdk`](htt
 cd packages/ampersend-hermes
 pnpm install
 pnpm bootstrap start --name my-hermes-agent
-# Show the user_approve_url to the user — they approve in the Ampersend dashboard
+# Show the user_approve_url to the user — they approve in the ampersend dashboard
 pnpm bootstrap finish
 ```
 
@@ -41,7 +41,7 @@ All environment variables are validated at startup with Zod. The variables requi
 | --- | --- | --- | --- |
 | AMPERSEND\_AGENT\_KEY | Yes | — | 0x-prefixed session key private key (66 chars) |
 | AMPERSEND\_AGENT\_ACCOUNT | Yes | — | 0x-prefixed smart account address (42 chars) |
-| AMPERSEND\_API\_URL | No | https://api.ampersend.ai | Ampersend API base URL |
+| AMPERSEND\_API\_URL | No | https://api.ampersend.ai | ampersend API base URL |
 | AMPERSEND\_NETWORK | No | base | Network: `base` or `base-sepolia` |
 | AMPERSEND\_CHAIN\_ID | No | auto from network | Chain ID (8453 for base, 84532 for base-sepolia) |
 | AMPERSEND\_MCP\_PROXY\_PORT | No | 3000 | MCP proxy listen port |
@@ -57,14 +57,14 @@ const cfg = loadConfig({ AMPERSEND_AGENT_KEY: "0x..." });
 
 ## Patch Hermes Config
 
-Register Ampersend under `mcp_servers.ampersend` (tools proxied via x402):
+Register ampersend under `mcp_servers.ampersend` (tools proxied via x402):
 
 ```typescript
 import { patchHermesConfig } from "@ampersend/hermes";
 await patchHermesConfig("~/.hermes");
 ```
 
-**Default (`stdio`) — recommended:** writes a **stdio** server entry that runs the Ampersend MCP proxy via `npx` with agent credentials in `env`. The proxy handles SIWE authentication and x402 payments internally.
+**Default (`stdio`) — recommended:** writes a **stdio** server entry that runs the ampersend MCP proxy via `npx` with agent credentials in `env`. The proxy handles SIWE authentication and x402 payments internally.
 
 **Optional HTTP (`transport: 'http'`):** connects to an already-running proxy at `http://127.0.0.1:<port>/mcp`:
 
@@ -105,7 +105,7 @@ pnpm setup -h                                          # full help
 
 ## Authorize Payments
 
-Use the Ampersend API to authorize payments with spend limits:
+Use the ampersend API to authorize payments with spend limits:
 
 ```typescript
 import { authorizePayment, getTreasurer } from "@ampersend/hermes";
@@ -146,7 +146,7 @@ validatePayment(
 
 ## Agent Management
 
-Create and manage agents through the Ampersend approval flow:
+Create and manage agents through the ampersend approval flow:
 
 ```typescript
 import {
@@ -200,7 +200,7 @@ src/
     hermes-config.ts — patchHermesConfig, patchHermesModel, unpatchHermesModel → config.yaml
     proxy-cli.ts     — Standalone MCP proxy runner
   payment/
-    index.ts         — Payment authorization and event reporting via Ampersend API
+    index.ts         — Payment authorization and event reporting via ampersend API
     guardrails.ts    — Client-side spend limit validation (network, per-tx)
     history.ts       — Payment record queries (future: API integration)
   agents/
@@ -210,7 +210,7 @@ src/
 
 ## How It Compares to 1claw-hermes
 
-This package follows the same architectural pattern as [1claw-hermes](https://github.com/1clawAI/1claw-hermes) but integrates Ampersend's payment capabilities instead of 1Claw's secrets management:
+This package follows the same architectural pattern as [1claw-hermes](https://github.com/1clawAI/1claw-hermes) but integrates ampersend's payment capabilities instead of 1Claw's secrets management:
 
 | 1claw-hermes | ampersend-hermes |
 | --- | --- |

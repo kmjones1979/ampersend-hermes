@@ -15,7 +15,7 @@ async function main(): Promise<void> {
   if (values.help) {
     process.stderr.write(`Usage: pnpm proxy [--port <number>]
 
-Starts the Ampersend MCP proxy server locally.
+Starts the ampersend MCP proxy server locally.
 Reads agent credentials from .env or environment.
 
 Environment:

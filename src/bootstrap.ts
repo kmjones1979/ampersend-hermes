@@ -119,7 +119,7 @@ function buildStubEnvContent(params: {
     `# Agent key address: ${params.agentKeyAddress}`,
     `# Approval token: ${params.token}`,
     "#",
-    "# After you approve in the Ampersend dashboard, run:",
+    "# After you approve in the ampersend dashboard, run:",
     "#   pnpm bootstrap finish",
     "#",
     `AMPERSEND_AGENT_KEY=${params.agentKey}`,
@@ -129,7 +129,7 @@ function buildStubEnvContent(params: {
 }
 
 /**
- * Phase 1 — Generate an agent key, request approval via the Ampersend API,
+ * Phase 1 — Generate an agent key, request approval via the ampersend API,
  * and write a stub .env. The user approves in the dashboard, then runs `finish`.
  *
  * Uses `npx ampersend setup start` under the hood.
