@@ -6,6 +6,8 @@ This package is a thin, typed layer over the [`@ampersend_ai/ampersend-sdk`](htt
 
 ## Quick Start (Bootstrap)
 
+> Defaults to **Base mainnet** and the **production ampersend API** (`https://api.ampersend.ai`). No flags needed for production use.
+
 **Recommended (Hermes, CI shells, non-TTY):** two-step flow — `start` generates a key and requests approval, `finish` polls and activates.
 
 ```bash
@@ -21,6 +23,7 @@ pnpm bootstrap finish
 ```bash
 pnpm setup --name my-hermes-agent
 # Requests approval, waits for it, patches Hermes config, starts MCP proxy
+# Uses Base mainnet + production ampersend by default
 # Switch to Hermes and run /reload-mcp
 ```
 
@@ -35,15 +38,15 @@ pnpm install && pnpm build
 
 ## Configuration
 
-All environment variables are validated at startup with Zod. The variables required for operation are `AMPERSEND_AGENT_KEY` and `AMPERSEND_AGENT_ACCOUNT` — everything else has sensible defaults.
+All environment variables are validated at startup with Zod. The variables required for operation are `AMPERSEND_AGENT_KEY` and `AMPERSEND_AGENT_ACCOUNT` — everything else defaults to **Base mainnet** and the **production ampersend API**.
 
 | Variable | Required | Default | Description |
 | --- | --- | --- | --- |
 | AMPERSEND\_AGENT\_KEY | Yes | — | 0x-prefixed session key private key (66 chars) |
 | AMPERSEND\_AGENT\_ACCOUNT | Yes | — | 0x-prefixed smart account address (42 chars) |
-| AMPERSEND\_API\_URL | No | https://api.ampersend.ai | ampersend API base URL |
-| AMPERSEND\_NETWORK | No | base | Network: `base` or `base-sepolia` |
-| AMPERSEND\_CHAIN\_ID | No | auto from network | Chain ID (8453 for base, 84532 for base-sepolia) |
+| AMPERSEND\_API\_URL | No | https://api.ampersend.ai | ampersend API base URL (production) |
+| AMPERSEND\_NETWORK | No | base | Network: `base` (mainnet) or `base-sepolia` (testnet) |
+| AMPERSEND\_CHAIN\_ID | No | 8453 | Chain ID — auto-derived from network |
 | AMPERSEND\_MCP\_PROXY\_PORT | No | 3000 | MCP proxy listen port |
 | AMPERSEND\_ENV\_FILE | No | — | Absolute path to .env when not next to this package |
 | HERMES\_CONFIG\_DIR | No | ~/.hermes | Path to Hermes config directory |
@@ -81,10 +84,10 @@ await patchHermesConfig("~/.hermes", { transport: "http", proxyPort: 3000 });
 ## One Command Setup (after bootstrap)
 
 ```bash
-pnpm setup --name my-hermes-agent --network base
+pnpm setup --name my-hermes-agent
 ```
 
-This does **everything**:
+This does **everything** (Base mainnet + production ampersend by default):
 
 1. Reads `AMPERSEND_AGENT_KEY` / `AMPERSEND_AGENT_ACCOUNT` from `.env` (runs bootstrap if missing).
 2. Patches `~/.hermes/config.yaml` → `mcp_servers.ampersend` (MCP proxy with x402 payments).
@@ -96,10 +99,10 @@ Switch back to Hermes and run `/reload-mcp`. Done.
 Options:
 
 ```bash
-pnpm setup --name my-agent --network base-sepolia    # testnet
 pnpm setup --name my-agent --proxy-port 4000          # custom port
 pnpm setup --name my-agent --no-proxy                 # patch only, start proxy yourself
 pnpm setup --name my-agent --daily-limit 10000000     # 10 USDC daily limit
+pnpm setup --name my-agent --network base-sepolia     # testnet (for development only)
 pnpm setup -h                                          # full help
 ```
 
