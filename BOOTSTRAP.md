@@ -71,6 +71,8 @@ Try inspecting a paid endpoint (no funds spent):
 ampersend fetch --inspect https://api.example.com/paid-endpoint
 ```
 
+From TypeScript, use **`getPaidFetch()`** from `@ampersend/hermes` for paid URLs — **not** `getApiClient().fetch(...)`, which only works for ampersend API paths (see README “Fetch paid (x402) URLs”).
+
 ## 6) Done
 
 Delete this file:

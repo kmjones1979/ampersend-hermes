@@ -18,7 +18,9 @@ let _paidFetch: ReturnType<typeof wrapFetchWithPayment> | null = null;
 
 /**
  * Returns a singleton ApiClient authenticated via SIWE with the agent's
- * session key. Handles payment authorization and event reporting.
+ * session key. Use for ampersend REST methods (`authorizePayment`, `reportPaymentEvent`, etc.).
+ *
+ * Do **not** use this client to `fetch` arbitrary `https://…` URLs — use {@link getPaidFetch} for x402-paid HTTP.
  */
 export function getApiClient(): ApiClient {
   if (!_apiClient) {

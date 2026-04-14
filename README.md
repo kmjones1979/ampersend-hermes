@@ -106,6 +106,31 @@ pnpm setup --name my-agent --network base-sepolia     # testnet (for development
 pnpm setup -h                                          # full help
 ```
 
+## Fetch paid (x402) URLs
+
+Do **not** call `getApiClient()` for arbitrary HTTPS URLs. The SDK `ApiClient` is only for paths under the ampersend API (e.g. `/api/v1/agents/...`). Calling something like `getApiClient().fetch("https://paid.example.com/...")` builds a broken URL and fails with `TypeError: fetch failed` — that is misuse, not “the remote server is down.”
+
+**Use one of these instead:**
+
+| Approach | When to use |
+| --- | --- |
+| `ampersend fetch <url>` | Shell / quick test (same as SDK’s x402 HTTP stack) |
+| `getPaidFetch()` from `@ampersend/hermes` | TypeScript: paid `fetch` with x402 handling |
+
+```typescript
+import { getPaidFetch } from "@ampersend/hermes";
+
+const fetchPaid = getPaidFetch();
+const res = await fetchPaid("https://example.com/x402-endpoint");
+console.log(await res.text());
+```
+
+Inspect cost without paying:
+
+```bash
+ampersend fetch --inspect https://example.com/x402-endpoint
+```
+
 ## Authorize Payments
 
 Use the ampersend API to authorize payments with spend limits:
@@ -192,7 +217,7 @@ pnpm proxy                           # start MCP proxy only
 ```
 src/
   config.ts          — Zod-validated env + runtime config, needsBootstrap() helper
-  client.ts          — Singleton wrappers: ApiClient, ApprovalClient, createTreasurer
+  client.ts          — getApiClient (REST), getPaidFetch (x402 URLs), ApprovalClient, createTreasurer
   dotenv-path.ts     — resolveDotEnvPath (AMPERSEND_ENV_FILE, cwd walk, package .env)
   errors.ts          — Typed error classes (ConfigError, PaymentError, SpendLimitViolationError)
   bootstrap.ts       — Two-phase: start (generate key + request approval) → finish (poll + write .env)

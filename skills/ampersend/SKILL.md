@@ -55,6 +55,20 @@ ampersend config set "0xagentKey:::0xagentAccount"
 # {"ok": true, "data": {"agentKeyAddress": "0x...", "agentAccount": "0x...", "status": "ready"}}
 ```
 
+## TypeScript (`@ampersend/hermes`)
+
+To fetch **paid HTTP URLs** from code, use **`getPaidFetch()`** — not `getApiClient()`.
+
+- **`getApiClient()`** — ampersend REST API only (authorize/report). Do not pass full `https://...` URLs to any internal `fetch` on that client; you will get `TypeError: fetch failed`.
+- **`getPaidFetch()`** — returns a `fetch` that handles x402 (same stack as `ampersend fetch`).
+
+```typescript
+import { getPaidFetch } from "@ampersend/hermes";
+
+const fetchPaid = getPaidFetch();
+const res = await fetchPaid("https://example.com/paid-endpoint");
+```
+
 ## MCP proxy (Hermes-specific)
 
 After setup, the ampersend MCP proxy is registered under `mcp_servers.ampersend` in Hermes config. The proxy intercepts x402 payment challenges automatically — when an MCP tool call hits a paid endpoint, the proxy:
